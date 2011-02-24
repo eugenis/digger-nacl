@@ -127,8 +127,6 @@ pp::Var PiGenerator::PiGeneratorScriptObject::Call(
 
 void* PiGenerator::ComputePi(void* param) {
 
-  usleep(3000000);
-
   printf("starting game thread\n");
 	digger_main(0, NULL);
 

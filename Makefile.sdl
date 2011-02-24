@@ -1,8 +1,16 @@
+CC=$(NACL_SDK_ROOT)/toolchain/linux_x86/bin/nacl64-gcc
+CXX=$(NACL_SDK_ROOT)/toolchain/linux_x86/bin/nacl64-g++
+LD=$(NACL_SDK_ROOT)/toolchain/linux_x86/bin/nacl64-g++
+
 CC	?= gcc
-CFLAGS	+= -O -g -pipe -Wall -D_SDL
+CFLAGS	+= -O0 -g -ggdb3 -fno-inline -pipe -Wall -D_SDL
 OBJS	= main.o digger.o drawing.o sprite.o scores.o record.o sound.o \
 			newsnd.o ini.o input.o monster.o bags.o alpha.o vgagrafx.o \
 			title_gz.o icon.o sdl_kbd.o sdl_vid.o sdl_timer.o sdl_snd.o
+
+
+CXXOBJS = plugin/pi_generator_module.o plugin/pi_generator.o
+
 
 ARCH	= "LINUX"
 #ARCH	= "MINGW"
@@ -23,9 +31,19 @@ ESUFFIX	=
 endif
 
 ifeq ($(ARCH),"LINUX")
+SDL_CFLAGS = -I$(NACL_SDK_ROOT)/toolchain/linux_x86/nacl64/usr/include/SDL
+SDL_LIBS = -lSDL
 OBJS	+= fbsd_sup.o	# strup()
-CFLAGS	+= -DLINUX `sdl-config --cflags`
-LIBS	+= `sdl-config --libs` -lz
+CFLAGS	+= -DLINUX $(SDL_CFLAGS)
+LIBS	+= $(SDL_LIBS) -lz \
+-lppruntime \
+-lppapi_cpp \
+-lgoogle_nacl_platform \
+-lgio \
+-lpthread \
+-lsrpc \
+-lnosys
+
 ESUFFIX	=
 endif
 
@@ -38,11 +56,14 @@ endif
 
 all: digger$(ESUFFIX)
 
-digger$(ESUFFIX): $(OBJS)
-	$(CC) -o digger$(ESUFFIX) $(OBJS) $(LIBS)
+digger$(ESUFFIX): $(OBJS) $(CXXOBJS)
+	$(LD) -o digger$(ESUFFIX) $(OBJS) $(CXXOBJS) $(LIBS)
 
 $(OBJS): %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
+
+$(CXXOBJS): %.o: %.cc
+	$(CXX) -c $(CFLAGS) $< -o $@
 
 clean:
 	rm -f $(OBJS) digger$(ESUFFIX)

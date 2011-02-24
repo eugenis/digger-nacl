@@ -1,6 +1,4 @@
-CC=$(NACL_SDK_ROOT)/toolchain/linux_x86/bin/nacl64-gcc
-CXX=$(NACL_SDK_ROOT)/toolchain/linux_x86/bin/nacl64-g++
-LD=$(NACL_SDK_ROOT)/toolchain/linux_x86/bin/nacl64-g++
+PATH := $(NACL_SDK_ROOT)/toolchain/linux_x86/bin:$(PATH)
 
 CC	?= gcc
 CFLAGS	+= -O0 -g -ggdb3 -fno-inline -pipe -Wall -D_SDL
@@ -66,4 +64,4 @@ $(CXXOBJS): %.o: %.cc
 	$(CXX) -c $(CFLAGS) $< -o $@
 
 clean:
-	rm -f $(OBJS) digger$(ESUFFIX)
+	rm -f $(OBJS) $(CXXOBJS) digger$(ESUFFIX)

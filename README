@@ -1,4 +1,7 @@
 This is a NativeClient port of an SDL port of Digger game (www.digger.com).
 To build, get NaCl SDK, set NACL_SDK_ROOT env variable, and do
-  make -f Makefile.sdl && cp digger www/jumpnbump_x86_64.nexe && python httpd.py
+
+make -f Makefile.sdl clean && CC=nacl-gcc CXX=nacl-g++ LD=nacl-g++ make -f Makefile.sdl && cp digger www/digger_x86_32.nexe && \
+make -f Makefile.sdl clean && CC=nacl64-gcc CXX=nacl64-g++ LD=nacl64-g++ make -f Makefile.sdl && cp digger www/digger_x86_64.nexe && \
+python httpd.py
 

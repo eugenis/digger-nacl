@@ -141,6 +141,8 @@ Sint3 leveldat[8][MHEIGHT][MWIDTH]=
 
 Sint4 getlevch(Sint4 x,Sint4 y,Sint4 l)
 {
+  if (l == 0)
+    return 'H';
   if ((l==3 || l==4) && !levfflag && diggers==2 && y==9 && (x==6 || x==8))
     return 'H';
   return leveldat[l-1][y][x];
@@ -311,7 +313,7 @@ void maininit(void)
 }
 
 #ifndef _WINDOWS
-int main(int argc,char *argv[])
+int digger_main(int argc,char *argv[])
 {
   maininit();
   parsecmd(argc,argv);

@@ -130,22 +130,8 @@ typedef unsigned long int Uint5;
 #define farcoreleft coreleft
 #endif
 
-#ifdef ARM
-#define ININAME "Digger:Settings"
-#elif defined FREEBSD && defined _VGL
-/* Applications using FreeBSD's console graphics running as root */
-#define ININAME "/var/games/digger/digger.rc"
-#elif defined UNIX && !defined _VGL
-/* While SDL and other X11 related apps could be runned as ordinary user */
-#ifdef FREEBSD
-#include <sys/syslimits.h>
-#else /* I donno what is analog of PATH_MAX for Linux :( */
 #define PATH_MAX 1024
-#endif
-#define ININAME strncat(strncpy(malloc(PATH_MAX),getenv("HOME"),PATH_MAX),"/.digger.rc",PATH_MAX)
-#else
-#define ININAME "DIGGER.INI"
-#endif
+#define ININAME "invalid_file_name"
 
 #if defined FREEBSD || defined LINUX
 #include "fbsd_sup.h"

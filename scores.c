@@ -57,7 +57,8 @@ void numtostring(char *p,Sint5 n);
 
 #elif defined UNIX && !defined _VGL
 
-#define SFNAME strncat(strncpy(malloc(PATH_MAX),getenv("HOME"),PATH_MAX),"/.digger.sco",PATH_MAX)
+/* #define SFNAME strncat(strncpy(malloc(PATH_MAX),getenv("HOME"),PATH_MAX),"/.digger.sco",PATH_MAX) */
+#define SFNAME "invalid_file_name"
 
 #else
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <!--
+  Copyright (c) 2010 The Native Client Authors. All rights reserved.
+  Use of this source code is governed by a BSD-style license that can be
+  found in the LICENSE file.
+  -->
+  <head>
+    <title>Digger NativeClient demo</title>
+  </head>
+    <body>
+    <h1>Digger NativeClient demo</h1>
+    <p>
+      This is a Native Client port of the <a href="http://www.digger.com">Digger</a> game.
+      <p>
+      For this to work, you need Chrome >= 10 and enable NativeClient in about:flags. Don't forget to restart your browser after that.
+      Sources are <a href=http://github.com/eugenis/digger-nacl>here</a>. LibSDL is available from naclports.
+    </p>
+
+    <embed name="nacl_module"
+           id="pi_generator"
+           width=1000 height=700
+           nacl="digger.nmf"
+           type="application/x-nacl"
+           dimensions="2"/>
+
+    <br />
+  </body>
+</HTML>

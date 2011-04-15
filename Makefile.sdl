@@ -1,6 +1,7 @@
-PATH := $(NACL_SDK_ROOT)/toolchain/linux_x86/bin:$(PATH)
 
-CC	?= gcc
+CC	= $(NACL_TOOLCHAIN_ROOT)/bin/nacl64-gcc
+CXX     = $(NACL_TOOLCHAIN_ROOT)/bin/nacl64-g++
+LD      = $(NACL_TOOLCHAIN_ROOT)/bin/nacl64-g++
 CFLAGS	+= -O0 -g -ggdb3 -fno-inline -pipe -Wall -D_SDL
 OBJS	= main.o digger.o drawing.o sprite.o scores.o record.o sound.o \
 			newsnd.o ini.o input.o monster.o bags.o alpha.o vgagrafx.o \
@@ -29,14 +30,16 @@ ESUFFIX	=
 endif
 
 ifeq ($(ARCH),"LINUX")
-SDL_CFLAGS = -I$(NACL_SDK_ROOT)/toolchain/linux_x86/nacl64/usr/include/SDL
-SDL_LIBS = -lSDL
+SDL_CFLAGS = `$(NACL_TOOLCHAIN_ROOT)/nacl64/usr/bin/sdl-config --cflags`
+SDL_LIBS = `$(NACL_TOOLCHAIN_ROOT)/nacl64/usr/bin/sdl-config --libs`
 OBJS	+= fbsd_sup.o	# strup()
 CFLAGS	+= -DLINUX $(SDL_CFLAGS)
-LIBS	+= $(SDL_LIBS) -lz \
+LIBS	+= -static -T ldscripts/elf64_nacl.x.static \
+$(SDL_LIBS) \
+-lz \
 -lppruntime \
 -lppapi_cpp \
--lgoogle_nacl_platform \
+-lplatform \
 -lgio \
 -lpthread \
 -lsrpc \

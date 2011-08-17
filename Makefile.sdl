@@ -1,14 +1,15 @@
 
-CC	= $(NACL_TOOLCHAIN_ROOT)/bin/nacl64-gcc
-CXX     = $(NACL_TOOLCHAIN_ROOT)/bin/nacl64-g++
-LD      = $(NACL_TOOLCHAIN_ROOT)/bin/nacl64-g++
+
+CC	= $(NACL_TOOLCHAIN_ROOT)/bin/nacl$(NACL_BITS)-gcc
+CXX     = $(NACL_TOOLCHAIN_ROOT)/bin/nacl$(NACL_BITS)-g++
+LD      = $(NACL_TOOLCHAIN_ROOT)/bin/nacl$(NACL_BITS)-g++
 CFLAGS	+= -O0 -g -ggdb3 -fno-inline -pipe -Wall -D_SDL
 OBJS	= main.o digger.o drawing.o sprite.o scores.o record.o sound.o \
 			newsnd.o ini.o input.o monster.o bags.o alpha.o vgagrafx.o \
 			title_gz.o icon.o sdl_kbd.o sdl_vid.o sdl_timer.o sdl_snd.o
 
 
-CXXOBJS = plugin/pi_generator_module.o plugin/pi_generator.o
+CXXOBJS = plugin.o 
 
 
 ARCH	= "LINUX"
@@ -30,20 +31,23 @@ ESUFFIX	=
 endif
 
 ifeq ($(ARCH),"LINUX")
-SDL_CFLAGS = `$(NACL_TOOLCHAIN_ROOT)/nacl64/usr/bin/sdl-config --cflags`
-SDL_LIBS = `$(NACL_TOOLCHAIN_ROOT)/nacl64/usr/bin/sdl-config --libs`
+SDL_CFLAGS = `$(NACL_TOOLCHAIN_ROOT)/nacl$(NACL_BITS)/usr/bin/sdl-config --cflags`
+SDL_LIBS = `$(NACL_TOOLCHAIN_ROOT)/nacl$(NACL_BITS)/usr/bin/sdl-config --libs`
 OBJS	+= fbsd_sup.o	# strup()
 CFLAGS	+= -DLINUX $(SDL_CFLAGS)
-LIBS	+= -static -T ldscripts/elf64_nacl.x.static \
-$(SDL_LIBS) \
+# LIBS	+= -static -T ldscripts/elf64_nacl.x.static
+LIBS    += $(SDL_LIBS) \
 -lz \
--lppruntime \
+-lppapi \
 -lppapi_cpp \
--lplatform \
--lgio \
--lpthread \
--lsrpc \
--lnosys
+
+# -lppruntime \
+# -lplatform \
+# -lgio \
+# -lpthread \
+# -lsrpc \
+# -limc \
+# -limc_syscalls
 
 ESUFFIX	=
 endif

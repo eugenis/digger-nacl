@@ -1,0 +1,6 @@
+{
+  "program": {
+    "x86-32": {"url": "digger_x86-32.nexe"},
+    "x86-64": {"url": "digger_x86-64.nexe"}
+  }
+}

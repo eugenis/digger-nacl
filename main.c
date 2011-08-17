@@ -1014,3 +1014,7 @@ void redefkeyb(bool allf)
       WriteINIString(INI_KEY_SETTINGS,kbuf,vbuf,ININAME);
     }
 }
+
+int kill(pid_t pid, int sig) {
+  return 0; // success
+}

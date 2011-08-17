@@ -3,7 +3,7 @@
 CC	= $(NACL_TOOLCHAIN_ROOT)/bin/nacl$(NACL_BITS)-gcc
 CXX     = $(NACL_TOOLCHAIN_ROOT)/bin/nacl$(NACL_BITS)-g++
 LD      = $(NACL_TOOLCHAIN_ROOT)/bin/nacl$(NACL_BITS)-g++
-CFLAGS	+= -O0 -g -ggdb3 -fno-inline -pipe -Wall -D_SDL
+CFLAGS	+= -O2 -pipe -Wall -D_SDL
 OBJS	= main.o digger.o drawing.o sprite.o scores.o record.o sound.o \
 			newsnd.o ini.o input.o monster.o bags.o alpha.o vgagrafx.o \
 			title_gz.o icon.o sdl_kbd.o sdl_vid.o sdl_timer.o sdl_snd.o
